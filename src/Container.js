@@ -10,10 +10,9 @@ import {
 } from 'grommet';
 
 import { FormClose, Notification } from 'grommet-icons';
-import { Route, Switch, withRouter, Link } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Loading from './components/Loading';
 import Login from './scenes/Login';
 import App from './App';
 import AppBar from './components/AppBar';

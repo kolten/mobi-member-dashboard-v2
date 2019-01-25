@@ -3,19 +3,17 @@ import {
   Box,
   Button,
   CheckBox,
-  Collapsible,
   Form,
   FormField,
   Select,
-  Text,  
 } from "grommet";
 
 import { connect } from 'react-redux';
 
 
-const Register = () => {
+const Register = (props) => {
   return (
-    <Box width="medium">
+    <Box width="large">
       <Form onSubmit={({ value }) => console.log("Submit", value)}>
         <FormField label="Email" name="email" type="email" required />
         <FormField
@@ -73,4 +71,4 @@ const Register = () => {
   )
 }
 
-export default connect(null)(Register);
+export default connect(state => state, {})(Register);

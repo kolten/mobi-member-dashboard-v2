@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 // For now, should refactor this into an HOC
-const AdminRequired = ({ component: Component, ...rest }) => {
+export const AdminRequired = ({ component: Component, ...rest }) => {
+  const { isAdmin } = rest
   return <Route {...rest} render={props => (
-    rest.isAdmin ? (
+    isAdmin ? (
       <Component {...props} />
     ) : (
       <Redirect to={{
@@ -15,8 +15,3 @@ const AdminRequired = ({ component: Component, ...rest }) => {
     )
   )} />
 }
-export default connect(
-  state => ({
-    isAdmin: state.auth.isAdmin,
-  })
-)(AdminRequired);
