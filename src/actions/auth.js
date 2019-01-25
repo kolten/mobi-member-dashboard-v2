@@ -4,7 +4,7 @@ export const CHANGE_LOGGED_IN = 'CHANGE_LOGGED_IN';
 export const SET_ADMIN = 'SET_ADMIN';
 
 export const ATTEMPT_LOGIN = "ATTEMPT_LOGIN";
-
+export const AUTH_ERROR = "AUTH_ERROR";
 
 export const changeLoggedIn = (loggedIn) => ({
   type: CHANGE_LOGGED_IN,
@@ -16,6 +16,11 @@ export const setAdmin = (isAdmin) => ({
   type: SET_ADMIN,
   isAdmin
 });
+
+export const setError = (err) =>({
+  type: AUTH_ERROR,
+  error: err
+})
 
 export const login = (email, password) => {
   return (dispatch) => {
@@ -29,8 +34,9 @@ export const login = (email, password) => {
       dispatch(setAdmin(user.is_admin))
     })
     .catch((err) => {
-      // TODO: Write error handling actions
       console.error(err);
+      // TODO: Write error handling actions
+      dispatch(setError(err.message))
     })
   }
 }

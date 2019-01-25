@@ -14,15 +14,20 @@ export const apiWrapper = (url, config) => {
   }
   
   return fetch(`${BASE_URL}${url}`, Object.assign({}, data, config))
-  .then((r) => r)
+  .then((r) => {
+    if(r.status >= 404){
+      throw Error("Something went wrong.. Try again, or email us at uta.mobi@gmail.com.")
+    }
+    return r;
+  })
   .then((res) => res.json())
   .then((res) => {
     if(res.error){
-      throw Error(res.error)
+      throw res.error
     }
     else{
       return res
     }
   })
-  .catch((err) => {throw Error(err)})
+  .catch((err) => { throw new Error(err) })
 }

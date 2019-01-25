@@ -14,7 +14,7 @@ import { Route, Switch, withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Loading from './components/Loading';
-import Login from './components/Login';
+import Login from './scenes/Login';
 import App from './App';
 import AppBar from './components/AppBar';
 import { Nav } from './App';
@@ -52,7 +52,7 @@ class Container extends Component {
       <Grommet theme={theme} full>
         <ResponsiveContext.Consumer>
           {size => (
-            <Box fill>
+            <Box responsive fill>
               <AppBar>
                 <Heading level='2' margin='none'>Mobi</Heading>
                 {

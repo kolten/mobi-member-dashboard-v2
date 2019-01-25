@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Box,
   Button,
@@ -12,17 +12,18 @@ import { Redirect } from 'react-router-dom';
 
 import { login } from '../actions/auth';
 
-
-const Login = (props) => {
-  if (props.auth) {
-    const { from } = props.location.state || { from: { pathname: '/' } }
-    return <Redirect to={from} />
-  }
-  return (
-    <Box width="medium">
+class Login extends Component {
+  render() {
+    const { auth, location, login } = this.props
+    if (auth.loggedIn) {
+      const { from } = location.state || { from: { pathname: '/' } }
+      return <Redirect to={from} />
+    }
+    return (
+      <Box width="medium">
         <Form onSubmit={( { value } ) => {
           const { email, password } = value;
-          props.login(email, password);
+          login(email, password);
         }}>
           <FormField 
             label="Email"
@@ -36,6 +37,9 @@ const Login = (props) => {
             type="password"
             required
           />
+          <Collapsible open={auth.error !== undefined}>
+          { auth.error && <Text color="red">{auth.error}</Text>}
+          </Collapsible>
           <Box 
             direction="row" 
             justify="center" 
@@ -44,15 +48,8 @@ const Login = (props) => {
           </Box>
         </Form>
       </Box>
-  )
+    );
+  }
 }
 
-
-export default connect(
-  state => ({
-    auth: state.auth.loggedIn
-  }),
-  {
-    login
-  }
-)(Login);
+export default connect(state => state, {login})(Login);

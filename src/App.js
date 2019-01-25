@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, Route, Switch } from 'react-router-dom';
 
-import { changeLoggedIn, setAdmin } from './actions/auth';
+import Register from './scenes/Register';
 import AdminRequired from './components/AdminRequired';
 
 export const Nav = ({auth, close}) => (
@@ -16,7 +16,6 @@ export const Nav = ({auth, close}) => (
 
 
 const Home = () => <h1>Home</h1>
-const Register = () => <h1>Register</h1>
 const Editor = () => <h1>Editor</h1>
 
 const App = (props) => {
@@ -37,7 +36,4 @@ export default connect(
   state => ({
     auth: state.auth,
   }),
-  {
-    changeLoggedIn, setAdmin
-  }
 )(App);

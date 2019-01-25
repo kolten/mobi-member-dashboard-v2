@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
-// For now
+// For now, should refactor this into an HOC
 const AdminRequired = ({ component: Component, ...rest }) => {
   return <Route {...rest} render={props => (
     rest.isAdmin ? (
