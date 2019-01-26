@@ -14,6 +14,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Login from './scenes/Login';
+import Reset from './scenes/Reset';
 import App from './App';
 import AppBar from './components/AppBar';
 import { Nav } from './App';
@@ -25,7 +26,9 @@ import { changeLoggedIn } from './actions/auth';
 const theme = {
   global: {
     colors: {
-      brand: '#228BE6'
+      brand: '#228BE6',
+      focus: "#afafaf",
+      background: '#fcfcfc'
     },
     font: {
       family: 'Roboto',
@@ -38,15 +41,20 @@ const theme = {
 // https://github.com/grommet/grommet-starter-new-app
 class Container extends Component {
   state = {
-    showSidebar: false
+    showSidebar: false,
+    showNavButton: false
   }
 
-  closeNav = () => {
+  toggleNav = () => {
     this.setState({ showSidebar: !this.state.showSidebar })
   }
+
+  toggleNavButton = (loggedIn) => {
+    this.setState({ showNavButton: loggedIn })
+  }
+
   render() {
-    const { showSidebar } = this.state;
-    const { pathname } = this.props.location
+    const { showSidebar, showNavButton } = this.state;
     return (
       <Grommet theme={theme} full>
         <ResponsiveContext.Consumer>
@@ -54,19 +62,18 @@ class Container extends Component {
             <Box responsive fill>
               <AppBar>
                 <Heading level='2' margin='none'>Mobi</Heading>
-                {
-                  pathname !== "/login" &&
-                  <Button
+                  {showNavButton && 
+                    <Button
                     icon={<Notification />}
-                    onClick={this.closeNav}
-                  />
-                }
+                    onClick={this.toggleNav}
+                  />}
                 </AppBar>
               <Box direction='row' flex overflow={{ horizontal: 'hidden' }}>
                 <Box flex align='center' justify='center'>
                   <Switch>
-                    <Route path="/login/" component={Login} />
-                    <LoginRequired component={App} />
+                    <Route path="/reset" component={Reset} />
+                    <Route path="/login" component={Login} />
+                    <LoginRequired toggleNav={this.toggleNavButton} component={App} />
                   </Switch>
                 </Box>
                 {(!showSidebar || size !== 'small') ? (
@@ -79,7 +86,7 @@ class Container extends Component {
                       align='center'
                       justify='center'
                     >
-                      <Nav close={this.closeNav} auth={this.props.auth}/>
+                      <Nav toggle={this.toggleNav} auth={this.props.auth}/>
                     </Box>
                   </Collapsible>
                 ): (
@@ -93,7 +100,7 @@ class Container extends Component {
                     >
                       <Button
                         icon={<FormClose />}
-                        onClick={this.closeNav}
+                        onClick={this.toggleNav}
                       />
                     </Box>
                     <Box
@@ -102,7 +109,7 @@ class Container extends Component {
                       align='center'
                       justify='center'
                     >
-                      <Nav close={this.closeNav} auth={this.props.auth}/>
+                      <Nav toggle={this.toggleNav} auth={this.props.auth}/>
                     </Box>
                   </Layer>
                 )}

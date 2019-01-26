@@ -29,9 +29,9 @@ export const login = (email, password) => {
       body: JSON.stringify({ email: email, password: password }) 
     })
     .then((user) => {
-      localStorage.setItem('token', user.Authorization)
-      dispatch(changeLoggedIn(user.is_member))
-      dispatch(setAdmin(user.is_admin))
+      localStorage.setItem('token', user.data.Authorization)
+      dispatch(changeLoggedIn(user.data.is_member))
+      dispatch(setAdmin(user.data.is_admin))
     })
     .catch((err) => {
       console.error(err);
@@ -52,13 +52,30 @@ export const getProfile = () => {
     );
 
     response.then((resp) => {
-      dispatch(changeLoggedIn(resp.is_member))
-      dispatch(setAdmin(resp.is_admin))
+      dispatch(changeLoggedIn(resp.data.is_member))
+      dispatch(setAdmin(resp.data.is_admin))
 
     })
     .catch((err) => {
       // TODO: Write error handling actions
       console.error(err);
+    })
+  }
+}
+
+export const reset = (token, password) => {
+  return dispatch => {
+    const response = apiWrapper('/auth/reset', {
+      method: 'POST',
+      body: JSON.stringify({token: token, password: password})
+    })
+    response.then((user) => {
+      localStorage.setItem('token', user.data.Authorization)
+      dispatch(changeLoggedIn(user.data.is_member))
+      dispatch(setAdmin(user.data.is_admin))
+    })
+    .catch((err) => {
+      dispatch(setError(err.message))
     })
   }
 }

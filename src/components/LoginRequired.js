@@ -6,6 +6,7 @@ import { Redirect, Route } from 'react-router-dom';
 const LoginRequired = ({ component: Component, ...rest }) => {
   return <Route {...rest} render={props => (
     rest.loggedIn ? (
+      rest.toggleNav(rest.loggedIn),
       <Component {...props} />
     ) : (
       <Redirect to={{
