@@ -22,7 +22,6 @@ const Editor = () => <h1>Editor</h1>
 
 const App = (props) => {
   const { isAdmin } = props.auth
-  console.log(props);
   return (
     <>
       <Switch>
