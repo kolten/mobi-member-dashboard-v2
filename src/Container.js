@@ -50,7 +50,7 @@ class Container extends Component {
 
   render() {
     const { showSidebar } = this.state;
-    const { loggedIn } = this.props.auth;
+    const { loggedIn, isAdmin } = this.props.auth;
     return (
       <Grommet theme={theme} full>
         <ResponsiveContext.Consumer>
@@ -82,7 +82,7 @@ class Container extends Component {
                       align='center'
                       justify='center'
                     >
-                      <Nav toggle={this.toggleNav} auth={this.props.auth}/>
+                      <Nav close={this.toggleNav} isAdmin={isAdmin}/>
                     </Box>
                   </Collapsible>
                 ): (
@@ -105,7 +105,7 @@ class Container extends Component {
                       align='center'
                       justify='center'
                     >
-                      <Nav toggle={this.toggleNav} auth={this.props.auth}/>
+                      <Nav close={this.toggleNav} isAdmin={isAdmin}/>
                     </Box>
                   </Layer>
                 )}

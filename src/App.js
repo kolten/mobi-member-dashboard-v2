@@ -8,11 +8,11 @@ import { Box, Text } from 'grommet';
 import Register from './scenes/Register';
 import {AdminRequired} from './components/AdminRequired';
 
-export const Nav = ({auth, close}) => (
+export const Nav = ({isAdmin, close}) => (
   <Box>
     <Link onClick={close} to="/home"><Text>Home</Text></Link>
-    {auth.isAdmin && <Link onClick={close} to="/register"><Text>Register</Text></Link>}
-    {auth.isAdmin && <Link onClick={close} to="/editor"><Text>Editor</Text></Link> }
+    {isAdmin && <Link onClick={close} to="/register"><Text>Register</Text></Link>}
+    {isAdmin && <Link onClick={close} to="/editor"><Text>Editor</Text></Link> }
   </Box>
 )
 
