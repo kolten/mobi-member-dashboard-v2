@@ -22,11 +22,12 @@ const Editor = () => <h1>Editor</h1>
 
 const App = (props) => {
   const { isAdmin } = props.auth
+  console.log(props);
   return (
     <>
       <Switch>
         <Route exact path="/home" component={Home} />
-        <AdminRequired exact path="/register" isAdmin={isAdmin} component={Register} />
+        <AdminRequired exact path="/register" isAdmin={isAdmin} component={() => <Register {...props}/>} />
         <AdminRequired exact path="/editor" isAdmin={isAdmin} component={Editor} />
         <Redirect exact from="/" to="/home" />
       </Switch>

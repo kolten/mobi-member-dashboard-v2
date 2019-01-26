@@ -5,12 +5,13 @@ import { Box, Button, Form, FormField } from 'grommet';
 
 import { reset } from '../actions/auth';
 
+// TODO: Handle errors
 class Reset extends Component {
   render() {
     const { location } = this.props;
     const query = new URLSearchParams(location.search);
     const token = query.get('token');
-    if (this.props.auth.loggedIn) {
+    if (this.props.auth.loggedIn || !token) {
       const { from } = location.state || { from: { pathname: '/' } }
       return <Redirect to={from} />
     }

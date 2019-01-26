@@ -58,6 +58,7 @@ export const getProfile = () => {
     })
     .catch((err) => {
       // TODO: Write error handling actions
+      dispatch(setError(err.message))
       console.error(err);
     })
   }

@@ -20,7 +20,7 @@ import AppBar from './components/AppBar';
 import { Nav } from './App';
 
 
-import LoginRequired from './components/LoginRequired';
+import { LoginRequired } from './components/LoginRequired';
 import { changeLoggedIn } from './actions/auth';
 
 const theme = {
@@ -42,19 +42,15 @@ const theme = {
 class Container extends Component {
   state = {
     showSidebar: false,
-    showNavButton: false
   }
 
   toggleNav = () => {
     this.setState({ showSidebar: !this.state.showSidebar })
   }
 
-  toggleNavButton = (loggedIn) => {
-    this.setState({ showNavButton: loggedIn })
-  }
-
   render() {
-    const { showSidebar, showNavButton } = this.state;
+    const { showSidebar } = this.state;
+    const { loggedIn } = this.props.auth;
     return (
       <Grommet theme={theme} full>
         <ResponsiveContext.Consumer>
@@ -62,7 +58,7 @@ class Container extends Component {
             <Box responsive fill>
               <AppBar>
                 <Heading level='2' margin='none'>Mobi</Heading>
-                  {showNavButton && 
+                  { loggedIn && 
                     <Button
                     icon={<Notification />}
                     onClick={this.toggleNav}
@@ -73,7 +69,7 @@ class Container extends Component {
                   <Switch>
                     <Route path="/reset" component={Reset} />
                     <Route path="/login" component={Login} />
-                    <LoginRequired toggleNav={this.toggleNavButton} component={App} />
+                    <LoginRequired loggedIn={loggedIn} component={App} />
                   </Switch>
                 </Box>
                 {(!showSidebar || size !== 'small') ? (
