@@ -14,7 +14,7 @@ import { login } from '../actions/auth';
 
 class Login extends Component {
   render() {
-    const { auth, location, login } = this.props
+    const { auth, location, login, loading } = this.props
     if (auth.loggedIn) {
       const { from } = location.state || { from: { pathname: '/' } }
       return <Redirect to={from} />
@@ -44,7 +44,7 @@ class Login extends Component {
             direction="row" 
             justify="center" 
             margin={{ top: "medium" }}>
-            <Button type="submit" label={"Login"} primary />
+            <Button disabled={!loading} type="submit" label={!loading ? "Logging in..." : "Login"} primary />
           </Box>
         </Form>
       </Box>
