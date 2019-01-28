@@ -78,7 +78,7 @@ export const getProfile = () => {
 export const reset = (token, password) => {
   return dispatch => {
     dispatch(setLoading());
-    
+
     const response = apiWrapper('/auth/reset', {
       method: 'POST',
       body: JSON.stringify({token: token, password: password})
@@ -96,4 +96,24 @@ export const reset = (token, password) => {
   }
 }
 
+// Sending a large object
+export const register = (data) => {
+  return dispatch => {
+    dispatch(setLoading());
+
+    const response = apiWrapper('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    
+    response.then((res) => {
+      dispatch(setLoading());
+      console.log(res);
+    })
+    .catch((err) => {
+      dispatch(setLoading());
+      dispatch(setError(err.message))
+    })
+  }
+}
 

@@ -2,9 +2,9 @@ import { baseUrl } from './config';
 
 const BASE_URL = baseUrl();
 
-const token = localStorage.getItem('token');
-
 export const apiWrapper = (url, config) => {
+  const token = localStorage.getItem('token');
+
   const data = {
     headers: {
       'Accept': 'application/json',
@@ -15,9 +15,9 @@ export const apiWrapper = (url, config) => {
   
   return fetch(`${BASE_URL}${url}`, Object.assign({}, data, config))
   .then((r) => {
-    if(r.status >= 404){
-      throw Error("Something went wrong.. Try again, or email us at uta.mobi@gmail.com.")
-    }
+    // if(r.status >= 404){
+    //   throw Error("Something went wrong.. Try again, or email us at uta.mobi@gmail.com.")
+    // }
     return r;
   })
   .then((res) => res.json())

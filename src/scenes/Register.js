@@ -10,11 +10,12 @@ import {
 
 import { connect } from 'react-redux';
 
+import { register } from '../actions/auth';
 
 const Register = (props) => {
   return (
     <Box width="large">
-      <Form onSubmit={({ value }) => console.log("Submit", value)}>
+      <Form onSubmit={({ value }) => props.register(value) }>
         <FormField label="Email" name="email" type="email" required />
         <FormField
           label="First Name"
@@ -30,7 +31,7 @@ const Register = (props) => {
         />
         <FormField
           label="Student ID"
-          name="student_Id"
+          name="student_id"
           placeholder="100########"
           required
           validate={{ regexp: /^[0-9]{10}$/, message: "Must be 10 digits" }}
@@ -56,7 +57,7 @@ const Register = (props) => {
           label="Did they pay?"
         />
         <FormField
-          name="recieved_tshirt"
+          name="recieved_shirt"
           component={CheckBox}
           pad
           label="Did they recieve a shirt?"
@@ -71,4 +72,4 @@ const Register = (props) => {
   )
 }
 
-export default connect(state => state, {})(Register);
+export default connect(state => state, {register})(Register);
